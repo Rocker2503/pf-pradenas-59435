@@ -1,7 +1,7 @@
 import { Validators } from "@angular/forms";
 
 export const nameValidator = Validators.compose([
-    Validators.required, Validators.minLength(3), Validators.pattern(new RegExp(/^[a-zA-Z]+$/))
+    Validators.required, Validators.minLength(3), Validators.pattern(new RegExp(/^[a-zA-Z ]+$/))
 ]);
 
 export const emailValidator = Validators.compose([
