@@ -37,7 +37,7 @@ import { TitleDirectiveDirective } from './directives/title-directive.directive'
     MatDialogModule,
     MatTableModule,
     UserFullNamePipe,
-    TitleDirectiveDirective
+    TitleDirectiveDirective,
   ],
 })
 export class SharedModule { }
