@@ -48,6 +48,12 @@ export class CoursesService {
     return of([...DB_COURSES]);
   }
 
+  updateCourse(editingCourse: Course, result: Object): Observable<Course[]>{
+    DB_COURSES = DB_COURSES.map((course) => course.id === editingCourse.id ? {...course, ...result} : course );
+
+    return of([...DB_COURSES]);
+  }
+
   getCourseById(id: string): Observable<Course | undefined>{
     return this.getCourses().pipe( map((courses) => courses.find((c) => c.id === id)));
   }

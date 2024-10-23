@@ -35,22 +35,24 @@ export class CoursesComponent implements OnInit{
     }
   }
 
-  openModal(courseEdited?: Course): void{
-    console.log(courseEdited);
+  openModal(editingCourse?: Course): void{
+    console.log(editingCourse);
     this.matDialog.open(
-      CoursesDialogComponent,{
+      CoursesDialogComponent, {
         height: '40%',
         width: '60%',
         data:{
-          courseEdited
-        }
+          editingCourse
+        },
       }).afterClosed()
       .subscribe({
         next: (result) => {
           console.log("result: " , result);
           if(result){
-            if(courseEdited){
-
+            if(editingCourse){
+              this.coursesService.updateCourse(editingCourse, result).subscribe({
+                next: (courses) => this.courses = courses
+              })
             }else{
               this.coursesService.addCourse(result).subscribe({
                 next: (courses) => this.courses = courses
