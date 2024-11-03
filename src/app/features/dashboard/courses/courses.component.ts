@@ -13,7 +13,7 @@ export class CoursesComponent implements OnInit{
 
   isEditing = false;
   courses: Course[] = [];
-  displayedColumns: string[] = ['id', 'name', 'createdAt', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'nivel', 'createdAt', 'actions'];
 
   constructor(private coursesService: CoursesService, private matDialog: MatDialog){}
 
@@ -47,10 +47,9 @@ export class CoursesComponent implements OnInit{
       }).afterClosed()
       .subscribe({
         next: (result) => {
-          console.log("result: " , result);
           if(result){
             if(editingCourse){
-              this.coursesService.updateCourse(editingCourse, result).subscribe({
+              this.coursesService.updateCourse(editingCourse.id, result).subscribe({
                 next: (courses) => this.courses = courses
               })
             }else{

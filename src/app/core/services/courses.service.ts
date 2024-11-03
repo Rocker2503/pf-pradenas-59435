@@ -1,61 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Course } from '../../models/course';
 import { generateRandomString } from '../../shared/utils';
-import { map, Observable, of } from 'rxjs';
-
-
-let DB_COURSES: Course[] = [
-  {
-    id: generateRandomString(5),
-    name: 'Angular',
-    createdAt: new Date()
-  },
-  {
-    id: generateRandomString(5),
-    name: 'React',
-    createdAt: new Date()
-  },
-  {
-    id: generateRandomString(5),
-    name: 'QA',
-    createdAt: new Date()
-  }
-];
+import { concatMap, map, Observable, of } from 'rxjs';
+import { environment } from '../../../environments/environment.development';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
 
-  constructor() { }
+  private baseURL = environment.apiBaseUrl;
+
+  constructor(private httpClient: HttpClient) { }
 
   getCourses(): Observable<Course[]>{
-    return of([...DB_COURSES]);
+    return this.httpClient.get<Course[]>(`${this.baseURL}/courses`);
   }
 
   addCourse(course: Course): Observable<Course[]>{
-    DB_COURSES = [
-      ...DB_COURSES,
-      {...course}
-    ];
-
-    return of([...DB_COURSES]);
+    return this.httpClient.post<Course>(`${this.baseURL}/courses`, {...course}).pipe(concatMap( ()=> this.getCourses()));
   }
 
   deleteCourseById(id: string): Observable<Course[]>{
-    DB_COURSES = DB_COURSES.filter((c) => c.id !== id );
-
-    return of([...DB_COURSES]);
+    return this.httpClient.delete<Course>(`${this.baseURL}/courses/${id}`).pipe(concatMap(() => this.getCourses()));
   }
 
-  updateCourse(editingCourse: Course, result: Object): Observable<Course[]>{
-    DB_COURSES = DB_COURSES.map((course) => course.id === editingCourse.id ? {...course, ...result} : course );
-
-    return of([...DB_COURSES]);
+  updateCourse(id: string, course: Course): Observable<Course[]>{
+    return this.httpClient.patch<Course>(`${this.baseURL}/courses/${id}`, course).pipe(concatMap( ()=> this.getCourses()));
   }
 
   getCourseById(id: string): Observable<Course | undefined>{
-    return this.getCourses().pipe( map((courses) => courses.find((c) => c.id === id)));
+    return this.httpClient.get<Course>(`${this.baseURL}/courses/${id}`);
   }
 
 }

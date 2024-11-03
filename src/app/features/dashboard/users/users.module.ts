@@ -9,7 +9,7 @@ import { UserDialogComponent } from './user-dialog/user-dialog.component';
 @NgModule({
   declarations: [
     UsersComponent,
-    UserDialogComponent
+    UserDialogComponent,
   ],
   imports: [
     CommonModule,

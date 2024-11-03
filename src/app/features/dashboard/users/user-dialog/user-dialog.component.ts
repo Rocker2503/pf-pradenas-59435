@@ -44,6 +44,9 @@ export class UserDialogComponent {
     return this.userForm.get('email');
   }
 
+  private get isEditing() {
+    return !!this.data?.editingUser;
+  }
 
   patchFormValue(){
     if(this.data?.editingUser){
@@ -57,8 +60,11 @@ export class UserDialogComponent {
     }else{
       this.matDialogRef.close({
         ...this.userForm.value,
-        id: generateRandomString(4),
-        createdAt: new Date()
+        id: this.isEditing ? this.data!.editingUser!.id : generateRandomString(4),
+        password: generateRandomString(6),
+        createdAt: this.isEditing ? this.data!.editingUser!.createdAt : new Date(),
+        type: "user",
+        token: generateRandomString(20)
       });
     }
 

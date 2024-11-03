@@ -1,4 +1,3 @@
-<div class="container">
 
     <h1 appTitleDirective>Cursos</h1>
 
@@ -18,6 +17,12 @@
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Nombre</th>
             <td mat-cell *matCellDef="let course">{{ course.name }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="nivel">
+            <th mat-header-cell *matHeaderCellDef>Nivel</th>
+            <td mat-cell *matCellDef="let course">{{ course.nivel }}</td>
         </ng-container>
 
         <!-- CreatedAt Column -->
@@ -43,5 +48,3 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
     </table>
-
-</div>

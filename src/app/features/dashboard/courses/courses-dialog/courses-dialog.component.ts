@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { Course } from '../../../../models/course';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, RequiredValidator, Validators } from '@angular/forms';
 import { nameValidator } from '../../../../shared/utils/custom-validator';
 import { generateRandomString } from '../../../../shared/utils';
 
@@ -24,12 +24,17 @@ export class CoursesDialogComponent {
   ){
     this.coursesForm = this.formBuilder.group({
       name: [null, [nameValidator]],
+      nivel: [null, [Validators.required]]
     });
     this.patchFormValue();
   }
 
   get nameControl(){
     return this.coursesForm.get('name');
+  }
+
+  private get isEditing(){
+    return !!this.data?.editingCourse;
   }
 
   patchFormValue(){
@@ -44,7 +49,7 @@ export class CoursesDialogComponent {
     }else{
       this.matDialogRef.close({
         ...this.coursesForm.value,
-        id: generateRandomString(5),
+        id: this.isEditing ? this.data?.editingCourse?.id : generateRandomString(4),
         createdAt: new Date()
       });
     }
