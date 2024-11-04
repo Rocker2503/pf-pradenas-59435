@@ -40,5 +40,15 @@
       "nivel": "Principiante",
       "createdAt": "2024-10-24T00:14:33.140Z"
     }
+  ],
+  "inscription": [
+    {
+      "idUser": "ASF3",
+      "idCourse": "COUR1"
+    },
+    {
+      "idUser": "ASF3",
+      "idCourse": "COUR2"
+    }
   ]
 }

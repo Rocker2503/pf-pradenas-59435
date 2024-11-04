@@ -1,1 +1,20 @@
 <h4>Bienvenido al perfil de {{user?.firstName}} {{user?.lastName}} </h4>
+
+<table class="table" style="width: 90%;">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Nivel</th>
+        </tr>
+    </thead>
+    <tbody >
+        @for(course of listCourses; track course.id){
+            <tr>
+                <td>{{course.id}}</td>
+                <td>{{course.name}}</td>
+                <td>{{course.nivel}}</td>
+            </tr>
+        }
+    </tbody>
+</table>

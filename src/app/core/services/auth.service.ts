@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, throwError } from 'rxjs';
 import { User } from '../../models/user';
 import { environment } from '../../../environments/environment.development';
 import { Router } from '@angular/router';
@@ -37,7 +37,7 @@ export class AuthService {
           if (user) {
             return user;
           } else {
-            throw throwError(() => new Error('Los datos son invalidos'));
+            throw new Error('Los datos son invalidos');
           }
         })
       );

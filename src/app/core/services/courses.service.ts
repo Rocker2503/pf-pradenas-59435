@@ -30,7 +30,7 @@ export class CoursesService {
     return this.httpClient.patch<Course>(`${this.baseURL}/courses/${id}`, course).pipe(concatMap( ()=> this.getCourses()));
   }
 
-  getCourseById(id: string): Observable<Course | undefined>{
+  getCourseById(id: string): Observable<Course>{
     return this.httpClient.get<Course>(`${this.baseURL}/courses/${id}`);
   }
 
