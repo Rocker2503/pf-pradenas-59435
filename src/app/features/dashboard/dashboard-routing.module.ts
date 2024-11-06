@@ -20,6 +20,12 @@ const routes: Routes = [
       (m) => m.CoursesModule
     )
   },
+  {
+    path: 'inscriptions',
+    loadChildren: () => import('./inscriptions/inscriptions.module').then(
+      (m) => m.InscriptionsModule
+    )
+  }
   
 ];
 

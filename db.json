@@ -43,10 +43,12 @@
   ],
   "inscription": [
     {
+      "id": "MDS1",
       "idUser": "ASF3",
       "idCourse": "COUR1"
     },
     {
+      "id": "MDS2",
       "idUser": "ASF3",
       "idCourse": "COUR2"
     }

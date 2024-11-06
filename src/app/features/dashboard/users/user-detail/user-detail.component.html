@@ -1,20 +1,25 @@
 <h4>Bienvenido al perfil de {{user?.firstName}} {{user?.lastName}} </h4>
 
-<table class="table" style="width: 90%;">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-            <th>Nivel</th>
-        </tr>
-    </thead>
-    <tbody >
-        @for(course of listCourses; track course.id){
-            <tr>
-                <td>{{course.id}}</td>
-                <td>{{course.name}}</td>
-                <td>{{course.nivel}}</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container">
+    <table mat-table [dataSource]="listCourses" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>No.</th>
+            <td mat-cell *matCellDef="let course">{{ course.id }}</td>
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let course">{{ course.name }}</td>
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="nivel">
+            <th mat-header-cell *matHeaderCellDef>Nivel</th>
+            <td mat-cell *matCellDef="let course">{{ course.nivel }}</td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+</div>

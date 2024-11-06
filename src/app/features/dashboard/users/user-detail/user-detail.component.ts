@@ -19,7 +19,7 @@ export class UserDetailComponent implements OnInit{
   listCourses: Course[] = [];
   dataSource = [];
 
-  displayedColumns: string[] = ["id", "nombre", "nivel"];
+  displayedColumns: string[] = ["id", "name", "nivel"];
 
   constructor(private activatedRoute: ActivatedRoute, 
     private userService: UsersService, 
@@ -43,7 +43,13 @@ export class UserDetailComponent implements OnInit{
         for(let i = 0; i < this.listInscription.length; i++){
           this.coursesService.getCourseById(this.listInscription[i].idCourse).subscribe({
             next: (course) => {
-              this.listCourses.push(course);
+              this.listCourses = [...this.listCourses, {
+                id: course.id,
+                name: course.name,
+                nivel: course.nivel,
+                createdAt: course.createdAt 
+              }
+            ];
             }
           })
         }

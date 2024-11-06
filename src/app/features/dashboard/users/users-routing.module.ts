@@ -11,7 +11,9 @@ const routes: Routes = [
   },
   {
     path: ':id/detail',
-    component: UserDetailComponent
+    loadChildren: () => import('./user-detail/user-detail.module').then(
+      (m) => m.UserDetailModule
+    )
   }
 ];
 

@@ -22,6 +22,13 @@
       [activated]="usersLink.isActive"
       mat-list-item>
       Alumnos</a>
+      <a 
+      routerLinkActive
+      #inscriptionLink="routerLinkActive"
+      routerLink="inscriptions"
+      [activated]="inscriptionLink.isActive"
+      mat-list-item>
+      Inscripciones</a>
       <a (click)="logout()" mat-list-item>Cerrar Sesión</a>
     </mat-nav-list>
   </mat-drawer>
