@@ -5,7 +5,6 @@ import { UsersService } from '../../../../core/services/users.service';
 import { Inscription } from '../../../../models/inscription';
 import { InscriptionService } from '../../../../core/services/inscription.service';
 import { Course } from '../../../../models/course';
-import { CoursesService } from '../../../../core/services/courses.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -16,15 +15,13 @@ export class UserDetailComponent implements OnInit{
   id?: string;
   user?: User;
   listInscription: Inscription[] = [];
-  listCourses: Course[] = [];
   dataSource = [];
 
   displayedColumns: string[] = ["id", "name", "nivel"];
 
   constructor(private activatedRoute: ActivatedRoute, 
     private userService: UsersService, 
-    private inscriptionService: InscriptionService,
-    private coursesService: CoursesService)
+    private inscriptionService: InscriptionService)
     {
     this.id = this.activatedRoute.snapshot.params['id'];
     this.loadInscriptions();
@@ -37,24 +34,11 @@ export class UserDetailComponent implements OnInit{
   }
 
   loadInscriptions(){
-    this.inscriptionService.getInscriptions(this.activatedRoute.snapshot.params['id']).subscribe({
+    this.inscriptionService.getInscriptionsByUserId(this.activatedRoute.snapshot.params['id']).subscribe({
       next: (inscriptions) => {
-        this.listInscription = inscriptions;
-        for(let i = 0; i < this.listInscription.length; i++){
-          this.coursesService.getCourseById(this.listInscription[i].idCourse).subscribe({
-            next: (course) => {
-              this.listCourses = [...this.listCourses, {
-                id: course.id,
-                name: course.name,
-                nivel: course.nivel,
-                createdAt: course.createdAt 
-              }
-            ];
-            }
-          })
-        }
+        this.listInscription = inscriptions       
       }
-    }); 
+    })
   }
 
   

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { User } from '../../models/user';
 
 @Component({
@@ -9,13 +9,16 @@ import { User } from '../../models/user';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
+export class DashboardComponent{
   showFiller = false;
 
   authUser$: Observable<User | null>;
-  
+  type: string | undefined;
+
   constructor(private router: Router, private authService: AuthService){
+    this.type = "";
     this.authUser$ = this.authService.authUser$;
+    this.authUser$.subscribe( (resp) => this.type = resp?.type);
   }
 
   logout(): void{

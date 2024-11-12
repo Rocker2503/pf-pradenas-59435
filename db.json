@@ -41,16 +41,16 @@
       "createdAt": "2024-10-24T00:14:33.140Z"
     }
   ],
-  "inscription": [
+  "inscriptions": [
     {
       "id": "MDS1",
-      "idUser": "ASF3",
-      "idCourse": "COUR1"
+      "userId": "ASF3",
+      "courseId": "COUR1"
     },
     {
       "id": "MDS2",
-      "idUser": "ASF3",
-      "idCourse": "COUR2"
+      "userId": "ASF3",
+      "courseId": "COUR2"
     }
   ]
 }

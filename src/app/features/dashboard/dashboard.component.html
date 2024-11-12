@@ -2,6 +2,7 @@
     <!-- SIDEBAR (MENU LATERAL) -->
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <mat-nav-list>
+      @if(this.type === "admin"){
       <a 
       routerLinkActive
       #homeLink="routerLinkActive"
@@ -30,9 +31,26 @@
       mat-list-item>
       Inscripciones</a>
       <a (click)="logout()" mat-list-item>Cerrar Sesión</a>
+    }@else {
+      <a 
+      routerLinkActive
+      #homeLink="routerLinkActive"
+      routerLink="home"
+      [activated]="homeLink.isActive"
+      mat-list-item>
+      Inicio</a>
+      <a 
+      routerLinkActive
+      #inscriptionLink="routerLinkActive"
+      routerLink="inscriptions"
+      [activated]="inscriptionLink.isActive"
+      mat-list-item>
+      Inscripciones</a>
+      <a (click)="logout()" mat-list-item>Cerrar Sesión</a>
+    }
     </mat-nav-list>
+  
   </mat-drawer>
-
   <!-- AREA DERECHA (CONTENIDO) -->
   <div class="example-sidenav-content">
     <!-- TOOLBAR -->

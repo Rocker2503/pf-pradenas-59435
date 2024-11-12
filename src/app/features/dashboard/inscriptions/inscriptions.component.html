@@ -1,1 +1,60 @@
-<p>inscriptions works!</p>
+<h1 appTitleDirective>Inscripciones</h1>
+
+<div class="container-fluid">
+    <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()">
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <mat-label>Curso</mat-label>
+                    <mat-select formControlName="courseId">
+                        <mat-option
+                            [value]="course.id"
+                            *ngFor="let course of coursesOptions$ | async"
+                        >
+                        {{ course.name}} - {{ course.nivel}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+                <div class="col-4">
+                    <mat-label>Alumno</mat-label>
+                    <mat-select formControlName="userId">
+                        <mat-option
+                            [value]="user.id"
+                            *ngFor="let user of userOptions$ | async"
+                        >
+                        {{ user.firstName}} {{ user.lastName}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+                <div class="col-4">
+                    <button mat-flat-button type="submit">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <br>
+    <hr>
+
+    <table mat-table [dataSource]="inscriptions$" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>No.</th>
+            <td mat-cell *matCellDef="let inscription">{{ inscription.id }}</td>
+        </ng-container>
+        <ng-container matColumnDef="course?.name">
+            <th mat-header-cell *matHeaderCellDef>Curso</th>
+            <td mat-cell *matCellDef="let inscription">{{ inscription.course?.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="course?.nivel">
+            <th mat-header-cell *matHeaderCellDef>Nivel</th>
+            <td mat-cell *matCellDef="let inscription">{{ inscription.course?.nivel }}</td>
+        </ng-container>
+        <ng-container matColumnDef="user?.firstName user?.lastName">
+            <th mat-header-cell *matHeaderCellDef>Alumno</th>
+            <td mat-cell *matCellDef="let inscription">{{ inscription.user | userFullName }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+</div>

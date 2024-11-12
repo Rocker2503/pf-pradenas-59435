@@ -14,8 +14,13 @@ export class InscriptionService{
 
     constructor(private httpClient: HttpClient){}
 
-    getInscriptions(idUser: string): Observable<Inscription[]>{
-        return this.httpClient.get<Inscription[]>(`${this.baseURL}/inscription?idUser=${idUser}`);
+    getInscriptionsByUserId(idUser: string): Observable<Inscription[]>{
+        return this.httpClient.get<Inscription[]>(
+            `${this.baseURL}/inscriptions?${idUser}&_embed=user&_embed=course`
+        );
     }
 
+    getAllInscriptions(): Observable<Inscription[]>{
+        return this.httpClient.get<Inscription[]>(`${this.baseURL}/inscriptions?_embed=user&_embed=course`);
+    }
 }
