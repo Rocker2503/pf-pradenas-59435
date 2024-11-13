@@ -32,7 +32,6 @@ export class LoginComponent {
   }
   
   doLogin(): void{
-    console.log("entra al doLogin");
     this.authService.login(this.loginForm.value).subscribe({
       next: (result) => {
         this.router.navigate(['dashboard', 'home']);
@@ -52,7 +51,6 @@ export class LoginComponent {
   }
 
   onSubmit(): void{
-      console.log("Submit");
     if(this.loginForm.invalid){
       this.loginForm.markAllAsTouched();
     }else{

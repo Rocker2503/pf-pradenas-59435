@@ -1,6 +1,6 @@
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthData } from "../../models/authdata";
-import { User } from "../../models/user";
+import { User } from "../../models/student";
 import { AuthService } from "./auth.service";
 import { NavigationExtras, Router } from "@angular/router";
 import { TestBed } from "@angular/core/testing";

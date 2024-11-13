@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Inscription } from '../../../models/inscription';
-import { User } from '../../../models/user';
+import { Student } from '../../../models/student';
 import { Course } from '../../../models/course';
 import { Store } from '@ngrx/store';
 import { selectCourseOption, selectInscriptions, selectUserOptions } from './store/inscription.selectors';
@@ -15,11 +15,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class InscriptionsComponent implements OnInit{
   inscriptions$: Observable<Inscription[]>;
-  userOptions$: Observable<User[]>;
+  userOptions$: Observable<Student[]>;
   coursesOptions$: Observable<Course[]>;
 
   inscriptionForm: FormGroup;
-  displayedColumns: string[] = ["id", "course?.name", "course?.nivel", "user?.firstName user?.lastName"];
+  displayedColumns: string[] = ["id", "course.name", "course.nivel", "student.name", "actions"];
 
   constructor(private store: Store, private formBuilder: FormBuilder){
     this.inscriptionForm = this.formBuilder.group({

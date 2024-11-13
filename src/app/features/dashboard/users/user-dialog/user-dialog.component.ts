@@ -2,12 +2,12 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { generateRandomString } from '../../../../shared/utils';
-import { User } from '../../../../models/user';
+import { Student } from '../../../../models/student';
 import { emailValidator, nameValidator } from '../../../../shared/utils/custom-validator';
 
 
 interface UserDialogData{
-  editingUser?: User;
+  editingUser?: Student;
 }
 
 @Component({

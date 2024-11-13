@@ -6,7 +6,7 @@ import { Observable, EMPTY, of, forkJoin } from 'rxjs';
 import { InscriptionActions } from './inscription.actions';
 import { InscriptionService } from '../../../../core/services/inscription.service';
 import { Action } from '@ngrx/store';
-import { UsersService } from '../../../../core/services/users.service';
+import { StudentService } from '../../../../core/services/student.service';
 import { CoursesService } from '../../../../core/services/courses.service';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class InscriptionEffects {
   constructor(
     private actions$: Actions,
     private inscriptionService: InscriptionService,
-    private userService: UsersService,
+    private userService: StudentService,
     private courseService: CoursesService
   ){
     this.loadInscriptions$ = createEffect( () => {
@@ -39,7 +39,7 @@ export class InscriptionEffects {
         concatMap( () => 
           forkJoin([
             this.courseService.getCourses(),
-            this.userService.getUsers()
+            this.userService.getStudents()
           ]).pipe(
             map((res) => 
               InscriptionActions.loadUsersAndCoursesOptionsSuccess({

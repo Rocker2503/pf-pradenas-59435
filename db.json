@@ -1,5 +1,5 @@
 {
-  "users": [
+  "students": [
     {
       "id": "ASF3",
       "firstName": "Raul",
@@ -19,6 +19,16 @@
       "type": "admin",
       "token": "asdsafdhsfksdfhsdfjsddfgjksdf",
       "createdAt": "2024-10-24T00:14:33.140Z"
+    },
+    {
+      "id": "TQAT",
+      "firstName": "Test",
+      "lastName": "Test",
+      "email": "test@mail.com",
+      "password": "123456",
+      "createdAt": "2024-11-13T00:33:35.362Z",
+      "type": "user",
+      "token": "052120LSFICLPQ285ZX6"
     }
   ],
   "courses": [
@@ -44,12 +54,12 @@
   "inscriptions": [
     {
       "id": "MDS1",
-      "userId": "ASF3",
+      "studentId": "ASF3",
       "courseId": "COUR1"
     },
     {
       "id": "MDS2",
-      "userId": "ASF3",
+      "studentId": "ASF3",
       "courseId": "COUR2"
     }
   ]

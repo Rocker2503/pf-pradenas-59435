@@ -1,10 +1,10 @@
 import { Course } from "./course";
-import { User } from "./user";
+import { Student } from "./student";
 
 export interface Inscription{
     id: string,
-    userId: string,
+    studentId: string,
     courseId: string,
-    user?: User,
+    student?: Student,
     course?: Course,
 }

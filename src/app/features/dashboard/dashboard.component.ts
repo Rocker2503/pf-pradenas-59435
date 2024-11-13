@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { map, Observable } from 'rxjs';
-import { User } from '../../models/user';
+import { Student } from '../../models/student';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +12,7 @@ import { User } from '../../models/user';
 export class DashboardComponent{
   showFiller = false;
 
-  authUser$: Observable<User | null>;
+  authUser$: Observable<Student | null>;
   type: string | undefined;
 
   constructor(private router: Router, private authService: AuthService){

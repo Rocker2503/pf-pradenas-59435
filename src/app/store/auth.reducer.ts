@@ -1,11 +1,11 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { AuthActions } from './auth.actions';
-import { User } from '../models/user';
+import { Student } from '../models/student';
 
 export const authFeatureName = 'auth';
 
 export interface AuthState{
-  authenticatedUser: User | null;
+  authenticatedUser: Student | null;
 };
 
 const initialState: AuthState = {

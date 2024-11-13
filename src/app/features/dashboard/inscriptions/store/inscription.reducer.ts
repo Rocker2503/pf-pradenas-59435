@@ -1,7 +1,7 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { InscriptionActions } from './inscription.actions';
 import { Inscription } from '../../../../models/inscription';
-import { User } from '../../../../models/user';
+import { Student } from '../../../../models/student';
 import { Course } from '../../../../models/course';
 
 export const inscriptionFeatureKey = 'inscription';
@@ -9,7 +9,7 @@ export const inscriptionFeatureKey = 'inscription';
 export interface State {
   inscriptions: Inscription[];
   loadInscriptionError: Error | null;
-  userOption: User[],
+  userOption: Student[],
   courseOption: Course[]
 }
 

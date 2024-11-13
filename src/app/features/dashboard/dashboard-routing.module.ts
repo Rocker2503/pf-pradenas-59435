@@ -25,6 +25,10 @@ const routes: Routes = [
     loadChildren: () => import('./inscriptions/inscriptions.module').then(
       (m) => m.InscriptionsModule
     )
+  },
+  {
+    path: '**',
+    redirectTo: 'home'
   }
   
 ];

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../../models/user';
+import { Student } from '../../../models/student';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { UsersService } from '../../../core/services/users.service';
+import { StudentService } from '../../../core/services/student.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -13,34 +13,34 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UsersComponent implements OnInit{
   displayedColumns: string[] = ['id', 'name', 'email', 'createdAt', 'actions'];
-  dataSource: User[] = [];
+  dataSource: Student[] = [];
 
-  constructor(private usersService: UsersService, private matDialog: MatDialog, private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(private usersService: StudentService, private matDialog: MatDialog, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.loadUsers();
+    this.loadStudents();
   }
 
   goToDetail(id: string){
     this.router.navigate([id, 'detail'] , { relativeTo: this.activatedRoute});
   }
 
-  loadUsers(): void{
-    this.usersService.getUsers().subscribe({
+  loadStudents(): void{
+    this.usersService.getStudents().subscribe({
       next: (users) => this.dataSource = users
     });
   }
 
   onDelete(id: string) {
     if (confirm('¿Esta seguro de eliminar a este alumno?')) {
-      this.usersService.deleteUserById(id).subscribe({
+      this.usersService.deleteStudentById(id).subscribe({
         next: (users) => this.dataSource = users
       })
     }
   }
 
-  updateUser(id: string, user: User): void{
-    this.usersService.updateUser(id, user).subscribe({
+  updateStudent(id: string, user: Student): void{
+    this.usersService.updateStudent(id, user).subscribe({
       next: 
       (users) => {
         this.dataSource = users;
@@ -48,7 +48,7 @@ export class UsersComponent implements OnInit{
     })
   }
 
-  openModal(editingUser?: User): void {
+  openModal(editingUser?: Student): void {
     this.matDialog
       .open(UserDialogComponent, {
         height: '40%',
@@ -62,10 +62,10 @@ export class UsersComponent implements OnInit{
         next: (result) => {
           if (result) {
             if(editingUser){
-              this.updateUser(editingUser.id, result);
+              this.updateStudent(editingUser.id, result);
             }else{
-              this.usersService.addUser(result).subscribe({
-                next: () => this.loadUsers()
+              this.usersService.addStudent(result).subscribe({
+                next: () => this.loadStudents()
               })
             }
           }
