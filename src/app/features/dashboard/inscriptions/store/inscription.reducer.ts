@@ -10,7 +10,9 @@ export interface State {
   inscriptions: Inscription[];
   loadInscriptionError: Error | null;
   userOption: Student[],
-  courseOption: Course[]
+  courseOption: Course[],
+  inscription: Inscription,
+  id: string;
 }
 
 export const initialState: State = {
@@ -18,6 +20,8 @@ export const initialState: State = {
   userOption: [],
   courseOption: [],
   loadInscriptionError: null,
+  inscription: { id: "", studentId: "", courseId: ""},
+  id: "",
 };
 
 export const reducer = createReducer( 
@@ -58,6 +62,61 @@ export const reducer = createReducer(
     return {
       ...state,
       loadInscriptionError: action.error,
+    }
+  }),
+  on(InscriptionActions.createInscription, (state) => {
+    return {
+      ...state,
+    }
+  }),
+  on(InscriptionActions.createInscriptionSuccess, (state, action) => {
+    return {
+      ...state,
+      inscription: action.data,
+      loadInscriptionError: null,
+    }
+  }),
+  on(InscriptionActions.createInscriptionFailure, (state, action) => {
+    return {
+      ...state,
+      loadInscriptionError: action.error
+    }
+  }),
+  on(InscriptionActions.updateInscription, (state, action) => {
+    return{
+      ...state,
+      id: action.id,
+      inscription: action.inscription
+    }
+  }),
+  on(InscriptionActions.updateInscriptionSuccess, (state, action) => {
+    return{
+      ...state,
+      inscriptions: action.data
+    }
+  }),
+  on(InscriptionActions.updateInscriptionFailure, (state,action) => {
+    return{
+      ...state,
+      loadInscriptionError: action.error
+    }
+  }),
+  on(InscriptionActions.deleteInscription, (state, action) => {
+    return{
+      ...state,
+      id: action.id
+    }
+  }),
+  on(InscriptionActions.deleteInscriptionSuccess, (state, action) => {
+    return {
+      ...state,
+      inscriptions: action.data
+    }
+  }),
+  on(InscriptionActions.deleteInscriptionFailure, (state, action) => {
+    return{
+      ...state,
+      loadInscriptionError: action.error
     }
   })
 );

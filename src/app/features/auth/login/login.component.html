@@ -34,6 +34,11 @@
                 <div style="text-align: center;" class="col-12">
                     <p>¿No tienes cuenta? <a routerLink="/auth/register" routerLinkActive="active" ariaCurrentWhenActive="page">Registrate</a> </p>
                 </div>
+                @if(loginMessage !== ""){
+                    <div style="text-align: center;" class="col-12">
+                        <small class="text-danger">{{ loginMessage }}</small>
+                    </div>
+                }
             </form>
         </mat-card-content>
     </mat-card>

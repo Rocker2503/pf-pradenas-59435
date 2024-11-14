@@ -8,10 +8,11 @@ import { InscriptionEffects } from './store/inscription.effects';
 import { StoreModule } from '@ngrx/store';
 import { inscriptionFeature } from './store/inscription.reducer';
 import { SharedModule } from '../../../shared/shared.module';
+import { InscriptionDialogComponent } from './inscription-dialog/inscription-dialog.component';
 
 
 @NgModule({
-  declarations: [InscriptionsComponent],
+  declarations: [InscriptionsComponent, InscriptionDialogComponent],
   imports: [
     CommonModule,
     InscriptionsRoutingModule,

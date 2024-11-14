@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { nameValidator } from '../../../shared/utils/custom-validator';
+import { emailValidator, nameValidator } from '../../../shared/utils/custom-validator';
 import { StudentService } from '../../../core/services/student.service';
 import { generateRandomString } from '../../../shared/utils';
 
@@ -22,12 +22,28 @@ export class RegisterComponent {
     this.registerForm = formBuilder.group({
       firstName: [null, [Validators.required ,nameValidator]],
       lastName: [null, [Validators.required ,nameValidator]],
-      email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required]]
+      email: [null, [Validators.required, emailValidator]],
+      password: [null, [Validators.required, Validators.minLength(6)]]
     });
     this.messageCreated = "";
   }
   
+  get firstNameControl(){
+    return this.registerForm.get('firstName');
+  }
+
+  get lastNameControl(){
+    return this.registerForm.get('lastName');
+  }
+
+  get emailControl(){
+    return this.registerForm.get('email');
+  }
+
+  get passwordControl(){
+    return this.registerForm.get('password');
+  }
+
   togglePasswordInputType(): void {
     if (this.passwordInputType === 'password') {
       this.passwordInputType = 'text';

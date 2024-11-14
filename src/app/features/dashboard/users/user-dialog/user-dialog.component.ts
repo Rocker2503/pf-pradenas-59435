@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { generateRandomString } from '../../../../shared/utils';
 import { Student } from '../../../../models/student';
-import { emailValidator, nameValidator } from '../../../../shared/utils/custom-validator';
+import { nameValidator } from '../../../../shared/utils/custom-validator';
 
 
 interface UserDialogData{
@@ -27,7 +27,7 @@ export class UserDialogComponent {
     this.userForm = this.formBuilder.group({
       firstName:[null, [nameValidator]],
       lastName: [null, [nameValidator]],
-      email: [null, [emailValidator]],
+      email: [null, [Validators.email]],
     });
     this.patchFormValue();
   }

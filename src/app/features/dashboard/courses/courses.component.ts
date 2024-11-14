@@ -36,7 +36,6 @@ export class CoursesComponent implements OnInit{
   }
 
   openModal(editingCourse?: Course): void{
-    console.log(editingCourse);
     this.matDialog.open(
       CoursesDialogComponent, {
         height: '40%',

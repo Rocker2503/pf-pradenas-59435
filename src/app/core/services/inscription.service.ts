@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Inscription } from '../../models/inscription';
 import { environment } from "../../../environments/environment.development";
-import { Observable, of } from "rxjs";
+import { concatMap, Observable, of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 
 
@@ -22,5 +22,17 @@ export class InscriptionService{
 
     getAllInscriptions(): Observable<Inscription[]>{
         return this.httpClient.get<Inscription[]>(`${this.baseURL}/inscriptions?_embed=student&_embed=course`);
+    }
+
+    createInscription(payload: Omit<Inscription, 'student'| 'course'>): Observable<Inscription>{
+        return this.httpClient.post<Inscription>(`${this.baseURL}/inscriptions`, payload);
+    }
+
+    updateInscription(id: string, payload: Omit<Inscription, 'student' | 'course'>): Observable<Inscription[]>{
+        return this.httpClient.patch<Inscription>(`${this.baseURL}/inscriptions/${id}`, payload).pipe(concatMap(() => this.getAllInscriptions()));
+    }
+
+    deleteInscription(id: string): Observable<Inscription[]>{
+        return this.httpClient.delete<Inscription>(`${this.baseURL}/inscriptions/${id}`).pipe(concatMap( () => this.getAllInscriptions()));
     }
 }

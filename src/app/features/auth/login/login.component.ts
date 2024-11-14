@@ -12,6 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent {
   passwordInputType: 'password' | 'text' = 'password';
 
+  loginMessage: string;
   loginForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
@@ -21,6 +22,16 @@ export class LoginComponent {
       email: [null,[Validators.required, Validators.email]],
       password:[ null, [Validators.required]]
     });
+
+    this.loginMessage = "";
+  }
+
+  get emailControl(){
+    return this.loginForm.get('email');
+  }
+
+  get passwordControl(){
+    return this.loginForm.get('passwrod');
   }
 
   togglePasswordInputType(): void {
@@ -37,9 +48,9 @@ export class LoginComponent {
         this.router.navigate(['dashboard', 'home']);
       },
       error: (err) => {
-        console.log(err);
         if(err instanceof Error){
-          alert(err.message);
+          this.loginForm.markAllAsTouched();
+          this.loginMessage = err.message;
         }
         if(err instanceof HttpErrorResponse){
           if(err.status === 0){
@@ -53,6 +64,11 @@ export class LoginComponent {
   onSubmit(): void{
     if(this.loginForm.invalid){
       this.loginForm.markAllAsTouched();
+      if(this.emailControl?.hasError('required')){
+        this.loginMessage = "Debe ingresar el correo";
+      }else{
+        this.loginMessage = "Las credenciales de acceso no son válidas"
+      }
     }else{
       this.doLogin();
     }

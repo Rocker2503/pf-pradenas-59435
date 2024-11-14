@@ -43,7 +43,7 @@ export class AuthService {
           if (user) {
             return user;
           } else {
-            throw new Error('Los datos son invalidos');
+            throw new Error('Las credenciales de acceso no son válidas');
           }
         })
       );

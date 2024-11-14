@@ -29,6 +29,16 @@
       "createdAt": "2024-11-13T00:33:35.362Z",
       "type": "user",
       "token": "052120LSFICLPQ285ZX6"
+    },
+    {
+      "id": "B3U4",
+      "firstName": "Juan",
+      "lastName": "Perez",
+      "email": "testmail@mail.com",
+      "password": "123456",
+      "createdAt": "2024-11-13T23:52:40.801Z",
+      "type": "user",
+      "token": "1VI7V24LUDAB2ME4S627"
     }
   ],
   "courses": [
@@ -49,6 +59,30 @@
       "name": "JavaScript",
       "nivel": "Principiante",
       "createdAt": "2024-10-24T00:14:33.140Z"
+    },
+    {
+      "id": "EC3A",
+      "name": "Data Analytics",
+      "nivel": "Intermedio",
+      "createdAt": "2024-11-14T01:50:27.320Z"
+    },
+    {
+      "id": "3NP6",
+      "name": "WordPress",
+      "nivel": "Principiante",
+      "createdAt": "2024-11-14T01:50:51.286Z"
+    },
+    {
+      "id": "XBUH",
+      "name": "React Js",
+      "nivel": "Intermedio",
+      "createdAt": "2024-11-14T01:51:00.626Z"
+    },
+    {
+      "id": "NENI",
+      "name": "Ciberseguridad",
+      "nivel": "Avanzado",
+      "createdAt": "2024-11-14T01:51:20.814Z"
     }
   ],
   "inscriptions": [
@@ -61,6 +95,37 @@
       "id": "MDS2",
       "studentId": "ASF3",
       "courseId": "COUR2"
+    },
+    {
+      "id": "YG6H",
+      "studentId": "B3U4",
+      "courseId": "NENI",
+      "student": {
+        "id": "B3U4",
+        "firstName": "Juan",
+        "lastName": "Perez",
+        "email": "testmail@mail.com",
+        "password": "123456",
+        "createdAt": "2024-11-13T23:52:40.801Z",
+        "type": "user",
+        "token": "1VI7V24LUDAB2ME4S627"
+      },
+      "course": {
+        "id": "COUR3",
+        "name": "JavaScript",
+        "nivel": "Principiante",
+        "createdAt": "2024-10-24T00:14:33.140Z"
+      }
+    },
+    {
+      "id": "F47A",
+      "studentId": "ASF3",
+      "courseId": "NENI"
+    },
+    {
+      "id": "LGN8",
+      "studentId": "B3U4",
+      "courseId": "EC3A"
     }
   ]
 }

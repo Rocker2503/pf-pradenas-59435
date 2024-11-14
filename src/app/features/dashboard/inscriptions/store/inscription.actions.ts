@@ -16,5 +16,17 @@ export const InscriptionActions = createActionGroup({
         courses: Course[]
     }>(),
     'Load Users and Courses Options Failure': props<{ error: Error}>(),
+
+    'Create Inscription': props<{ id: string; studentId: string, courseId: string}>(),
+    'Create Inscription Success': props<{ data: Inscription}>(),
+    'Create Inscription Failure': props<{ error: Error}>(),
+
+    'Update Inscription': props<{id: string, inscription: Inscription}>(),
+    'Update Inscription Success': props<{ data: Inscription[] }>(),
+    'Update Inscription Failure': props<{ error: Error}>(),
+
+    'Delete Inscription': props<{ id: string }>(),
+    'Delete Inscription Success': props<{ data: Inscription[]}>(),
+    'Delete Inscription Failure': props<{error: Error}>()
   }
 });
