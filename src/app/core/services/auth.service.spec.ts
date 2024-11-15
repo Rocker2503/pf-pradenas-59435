@@ -1,13 +1,13 @@
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthData } from "../../models/authdata";
-import { User } from "../../models/student";
+import { Student } from "../../models/student";
 import { AuthService } from "./auth.service";
 import { NavigationExtras, Router } from "@angular/router";
 import { TestBed } from "@angular/core/testing";
 import { MockProvider } from 'ng-mocks';
 
 
-const testUser: User = {
+const testUser: Student = {
     id: "ADM1",
     firstName: "Admin",
     lastName: "Admin",
@@ -88,7 +88,7 @@ describe('AuthService', () => {
         mockReq.flush([]);
     });
 
-    it('Logout debe remover el token del localStorage, se debe quitar el usuario logeado y redirigir al auth/login', () => {
+    it('Logout debe remover el token del localStorage, se debe quitar el usuario logeado y redirigir al auth/login', (done) => {
         const spyOnNavigate = spyOn(router, 'navigate');
 
         service.login(testData).subscribe();
@@ -100,6 +100,12 @@ describe('AuthService', () => {
 
         service.logout();
         expect(localStorage.getItem('token')).toBeNull();
+        service.authUser$.subscribe({
+            next: (user) => {
+                expect(user).toBeNull();
+                done();
+            }
+        })
 
         expect(spyOnNavigate).toHaveBeenCalledOnceWith(['auth', 'login']);
     });
