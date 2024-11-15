@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { catchError, concatMap, map } from 'rxjs/operators';
-import { Observable, EMPTY, of, forkJoin } from 'rxjs';
+import { of, forkJoin } from 'rxjs';
 import { InscriptionActions } from './inscription.actions';
 import { InscriptionService } from '../../../../core/services/inscription.service';
 import { Action } from '@ngrx/store';
@@ -16,16 +16,8 @@ export class InscriptionEffects {
   loadUserAndCourseOptions$: Actions<Action<string>>;
 
   createInscription$: Actions<Action<string>>;
-  createInscriptionSuccess$: Actions<Action<string>>;
-  createInscriptionError$: Actions<Action<string>>;
-
   updateInscription$: Actions<Action<string>>;
-  updateInscriptionSuccess$: Actions<Action<string>>;
-  updateInscriptionError$: Actions<Action<string>>;
-
   deleteInscription$: Actions<Action<string>>;
-  deleteInscriptionSuccess$: Actions<Action<string>>;
-  deleteInscriptionError$: Actions<Action<string>>;
 
   constructor(
     private actions$: Actions,
@@ -51,7 +43,7 @@ export class InscriptionEffects {
         concatMap( () => 
           forkJoin([
             this.courseService.getCourses(),
-            this.userService.getStudents()
+            this.userService.getUserStudents()
           ]).pipe(
             map((res) => 
               InscriptionActions.loadUsersAndCoursesOptionsSuccess({
@@ -76,26 +68,12 @@ export class InscriptionEffects {
               courseId: action.courseId
             })
             .pipe(
-              map( (data) => InscriptionActions.createInscriptionSuccess({ data })),
+              map( (data) => InscriptionActions.createInscriptionSuccess({data})),
               catchError( (error) => 
                 of(InscriptionActions.createInscriptionFailure({ error }))
               )
             )
         )
-      );
-    });
-
-    this.createInscriptionSuccess$ = createEffect( () => {
-      return this.actions$.pipe(
-        ofType(InscriptionActions.createInscriptionSuccess),
-        map( () => InscriptionActions.loadInscriptions())
-      );
-    });
-
-    this.createInscriptionError$ = createEffect( () => {
-      return this.actions$.pipe(
-        ofType(InscriptionActions.createInscriptionFailure),
-        map( (error) => InscriptionActions.loadInscriptionFailure(error))
       );
     });
 
@@ -114,20 +92,6 @@ export class InscriptionEffects {
       );
     });
 
-    this.updateInscriptionSuccess$ = createEffect( () => {
-      return this.actions$.pipe(
-        ofType(InscriptionActions.updateInscriptionSuccess),
-        map( () => InscriptionActions.loadInscriptions())
-      );
-    });
-
-    this.updateInscriptionError$ = createEffect( () => {
-      return this.actions$.pipe(
-        ofType(InscriptionActions.updateInscriptionFailure),
-        map( (error) => InscriptionActions.loadInscriptionFailure(error))
-      );
-    })
-
     this.deleteInscription$ = createEffect( () => {
       return this.actions$.pipe(
         ofType(InscriptionActions.deleteInscription),
@@ -143,20 +107,6 @@ export class InscriptionEffects {
       );
     });
 
-    this.deleteInscriptionSuccess$ = createEffect( () => {
-      return this.actions$.pipe(
-        ofType(InscriptionActions.deleteInscriptionSuccess),
-        map( () => InscriptionActions.loadInscriptions())
-      );
-    });
-
-    this.deleteInscriptionError$ = createEffect( () => {
-      return this.actions$.pipe(
-        ofType(InscriptionActions.deleteInscriptionFailure),
-        map( (error) => InscriptionActions.deleteInscriptionFailure(error))
-      );
-    });
-  
   }
 
 }

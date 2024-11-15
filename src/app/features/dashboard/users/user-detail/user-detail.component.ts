@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Student } from '../../../../models/student';
 import { ActivatedRoute } from '@angular/router';
 import { StudentService } from '../../../../core/services/student.service';
-import { Inscription } from '../../../../models/inscription';
 import { InscriptionService } from '../../../../core/services/inscription.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-detail',
@@ -13,17 +13,14 @@ import { InscriptionService } from '../../../../core/services/inscription.servic
 export class UserDetailComponent implements OnInit{
   id?: string;
   user?: Student;
-  listInscription: Inscription[] = [];
-  dataSource = [];
-
-  displayedColumns: string[] = ["id", "name", "nivel"];
-
+  passwordInputType: 'password' | 'text' = 'password';
+  
   constructor(private activatedRoute: ActivatedRoute, 
     private userService: StudentService, 
-    private inscriptionService: InscriptionService)
+    private inscriptionService: InscriptionService
+  )
     {
     this.id = this.activatedRoute.snapshot.params['id'];
-    this.loadInscriptions();
 
   }
   ngOnInit(): void {
@@ -32,14 +29,11 @@ export class UserDetailComponent implements OnInit{
     }); 
   }
 
-  loadInscriptions(){
-    console.log(this.activatedRoute.snapshot.params['id']);
-    this.inscriptionService.getInscriptionsByUserId(this.activatedRoute.snapshot.params['id']).subscribe({
-      next: (inscriptions) => {
-        this.listInscription = inscriptions       
-      }
-    })
+  togglePasswordInputType(){
+    if (this.passwordInputType === 'password') {
+      this.passwordInputType = 'text';
+    } else {
+      this.passwordInputType = 'password';
+    }
   }
-
-  
 }

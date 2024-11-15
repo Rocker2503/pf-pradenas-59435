@@ -3,6 +3,11 @@ import { CoursesService } from '../../../core/services/courses.service';
 import { Course } from '../../../models/course';
 import { MatDialog } from '@angular/material/dialog';
 import { CoursesDialogComponent } from './courses-dialog/courses-dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Student } from '../../../models/student';
+import { Store } from '@ngrx/store';
+import { selectAuthenticatedUser } from '../../../store/auth.selectors';
 
 @Component({
   selector: 'app-courses',
@@ -15,10 +20,27 @@ export class CoursesComponent implements OnInit{
   courses: Course[] = [];
   displayedColumns: string[] = ['id', 'name', 'nivel', 'createdAt', 'actions'];
 
-  constructor(private coursesService: CoursesService, private matDialog: MatDialog){}
+  authUser$: Observable<Student | null>;
+  authUser: Student | null = null;
 
+  constructor(
+    private coursesService: CoursesService, 
+    private matDialog: MatDialog, 
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private store: Store
+  ){
+    this.authUser$ = this.store.select(selectAuthenticatedUser);
+    this.authUser$.subscribe({
+      next: (user) => this.authUser = user
+    });
+  }
   ngOnInit(): void {
     this.loadCourses();
+  }
+
+  goToDetail(id: string):void{
+    this.router.navigate([id, 'detail'], {relativeTo: this.activatedRoute});
   }
 
   loadCourses():void{

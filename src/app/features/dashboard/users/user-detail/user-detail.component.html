@@ -1,24 +1,39 @@
 <h4>Bienvenido al perfil de {{user?.firstName}} {{user?.lastName}} </h4>
 
-<table mat-table [dataSource]="listInscription">
-     <!-- Id Column -->
-     <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>No.</th>
-        <td mat-cell *matCellDef="let inscription">{{ inscription.course?.id }}</td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Nombre</th>
-        <td mat-cell *matCellDef="let inscription">{{ inscription.course?.name }}</td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="nivel">
-        <th mat-header-cell *matHeaderCellDef>Nivel</th>
-        <td mat-cell *matCellDef="let inscription">{{ inscription.course?.nivel }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <h6>Información del usuario</h6>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-6">
+                <p><b>Nombre:</b> {{ user?.firstName }} {{ user?.lastName}}</p>
+            </div>
+            <div class="col-6">
+                <p><b>Correo electrónico:</b> {{user?.email}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p><b>Fecha de creación:</b> {{ user?.createdAt | date: "dd-MM-yyyy" }}</p>
+            </div>
+            <div class="col-6">
+                <p><b>Contraseña: </b>
+                    <mat-form-field>
+                        <input [type]="passwordInputType" matInput [value]="user?.password"/>
+                        <button
+                        type="button"
+                        (click)="togglePasswordInputType()"
+                        matSuffix
+                        mat-icon-button
+                        >
+                        <mat-icon>visibility</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </p>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

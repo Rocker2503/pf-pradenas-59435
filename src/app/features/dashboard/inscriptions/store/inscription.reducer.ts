@@ -11,8 +11,6 @@ export interface State {
   loadInscriptionError: Error | null;
   userOption: Student[],
   courseOption: Course[],
-  inscription: Inscription,
-  id: string;
 }
 
 export const initialState: State = {
@@ -20,8 +18,6 @@ export const initialState: State = {
   userOption: [],
   courseOption: [],
   loadInscriptionError: null,
-  inscription: { id: "", studentId: "", courseId: ""},
-  id: "",
 };
 
 export const reducer = createReducer( 
@@ -72,8 +68,8 @@ export const reducer = createReducer(
   on(InscriptionActions.createInscriptionSuccess, (state, action) => {
     return {
       ...state,
-      inscription: action.data,
-      loadInscriptionError: null,
+      inscriptions: action.data,
+      loadInscriptionError: null
     }
   }),
   on(InscriptionActions.createInscriptionFailure, (state, action) => {
@@ -82,17 +78,16 @@ export const reducer = createReducer(
       loadInscriptionError: action.error
     }
   }),
-  on(InscriptionActions.updateInscription, (state, action) => {
+  on(InscriptionActions.updateInscription, (state) => {
     return{
       ...state,
-      id: action.id,
-      inscription: action.inscription
     }
   }),
   on(InscriptionActions.updateInscriptionSuccess, (state, action) => {
     return{
       ...state,
-      inscriptions: action.data
+      inscriptions: action.data,
+      loadInscriptionError: null
     }
   }),
   on(InscriptionActions.updateInscriptionFailure, (state,action) => {
@@ -101,16 +96,16 @@ export const reducer = createReducer(
       loadInscriptionError: action.error
     }
   }),
-  on(InscriptionActions.deleteInscription, (state, action) => {
+  on(InscriptionActions.deleteInscription, (state) => {
     return{
       ...state,
-      id: action.id
     }
   }),
   on(InscriptionActions.deleteInscriptionSuccess, (state, action) => {
     return {
       ...state,
-      inscriptions: action.data
+      inscriptions: action.data,
+      loadInscriptionError: null
     }
   }),
   on(InscriptionActions.deleteInscriptionFailure, (state, action) => {

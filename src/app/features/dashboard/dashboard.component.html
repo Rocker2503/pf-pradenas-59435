@@ -2,7 +2,6 @@
     <!-- SIDEBAR (MENU LATERAL) -->
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <mat-nav-list>
-      @if(this.type === "admin"){
       <a 
       routerLinkActive
       #homeLink="routerLinkActive"
@@ -10,6 +9,13 @@
       [activated]="homeLink.isActive"
       mat-list-item>
       Inicio</a>
+      <a 
+      routerLinkActive
+      #studentsLink="routerLinkActive"
+      routerLink="students"
+      [activated]="studentsLink.isActive"
+      mat-list-item>
+      Alumnos</a>
       <a 
       routerLinkActive
       #coursesLink="routerLinkActive"
@@ -18,36 +24,21 @@
       mat-list-item>Cursos</a>
       <a 
       routerLinkActive
-      #usersLink="routerLinkActive"
-      routerLink="users"
-      [activated]="usersLink.isActive"
-      mat-list-item>
-      Alumnos</a>
-      <a 
-      routerLinkActive
       #inscriptionLink="routerLinkActive"
       routerLink="inscriptions"
       [activated]="inscriptionLink.isActive"
       mat-list-item>
       Inscripciones</a>
+      @if(this.type === "admin"){
+        <a 
+        routerLinkActive
+        #usersLink="routerLinkActive"
+        routerLink="users"
+        [activated]="usersLink.isActive"
+        mat-list-item>
+        Usuarios</a>  
+      }
       <a (click)="logout()" mat-list-item>Cerrar Sesión</a>
-    }@else {
-      <a 
-      routerLinkActive
-      #homeLink="routerLinkActive"
-      routerLink="home"
-      [activated]="homeLink.isActive"
-      mat-list-item>
-      Inicio</a>
-      <a 
-      routerLinkActive
-      #inscriptionLink="routerLinkActive"
-      routerLink="inscriptions"
-      [activated]="inscriptionLink.isActive"
-      mat-list-item>
-      Inscripciones</a>
-      <a (click)="logout()" mat-list-item>Cerrar Sesión</a>
-    }
     </mat-nav-list>
   
   </mat-drawer>

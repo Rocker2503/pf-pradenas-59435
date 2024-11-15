@@ -33,14 +33,14 @@ export class UsersComponent implements OnInit{
 
   onDelete(id: string) {
     if (confirm('¿Esta seguro de eliminar a este alumno?')) {
-      this.usersService.deleteStudentById(id).subscribe({
+      this.usersService.deleteUserById(id).subscribe({
         next: (users) => this.dataSource = users
       })
     }
   }
 
-  updateStudent(id: string, user: Student): void{
-    this.usersService.updateStudent(id, user).subscribe({
+  updateUser(id: string, user: Student): void{
+    this.usersService.updateUser(id, user).subscribe({
       next: 
       (users) => {
         this.dataSource = users;
@@ -51,7 +51,7 @@ export class UsersComponent implements OnInit{
   openModal(editingUser?: Student): void {
     this.matDialog
       .open(UserDialogComponent, {
-        height: '40%',
+        height: '60%',
         width: '60%',
         data:{
           editingUser
@@ -62,9 +62,9 @@ export class UsersComponent implements OnInit{
         next: (result) => {
           if (result) {
             if(editingUser){
-              this.updateStudent(editingUser.id, result);
+              this.updateUser(editingUser.id, result);
             }else{
-              this.usersService.addStudent(result).subscribe({
+              this.usersService.addUser(result).subscribe({
                 next: () => this.loadStudents()
               })
             }

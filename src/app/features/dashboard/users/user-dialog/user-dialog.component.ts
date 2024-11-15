@@ -28,6 +28,7 @@ export class UserDialogComponent {
       firstName:[null, [nameValidator]],
       lastName: [null, [nameValidator]],
       email: [null, [Validators.email]],
+      type: [null,[Validators.required]],
     });
     this.patchFormValue();
   }
@@ -61,10 +62,9 @@ export class UserDialogComponent {
       this.matDialogRef.close({
         ...this.userForm.value,
         id: this.isEditing ? this.data!.editingUser!.id : generateRandomString(4),
-        password: generateRandomString(6),
-        createdAt: this.isEditing ? this.data!.editingUser!.createdAt : new Date(),
-        type: "user",
-        token: generateRandomString(20)
+        password: this.isEditing ? this.data!.editingUser?.password : generateRandomString(6),
+        createdAt: this.isEditing ? this.data!.editingUser?.createdAt : new Date(),
+        token: this.isEditing ? this.data!.editingUser?.token : generateRandomString(20)
       });
     }
 

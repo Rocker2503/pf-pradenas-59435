@@ -7,6 +7,9 @@ import { InscriptionActions } from './store/inscription.actions';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { InscriptionDialogComponent } from './inscription-dialog/inscription-dialog.component';
+import { Student } from '../../../models/student';
+import { selectAuthenticatedUser } from '../../../store/auth.selectors';
+import { AuthActions } from '../../../store/auth.actions';
 
 @Component({
   selector: 'app-inscriptions',
@@ -14,18 +17,24 @@ import { InscriptionDialogComponent } from './inscription-dialog/inscription-dia
   styleUrl: './inscriptions.component.scss'
 })
 export class InscriptionsComponent implements OnInit{
+  
+  displayedColumns: string[] = ["id", "course", "nivel", "student", "actions"];
   inscriptions$: Observable<Inscription[]>;
+  authUser$: Observable<Student | null>;
 
-  inscriptionForm: FormGroup;
-  displayedColumns: string[] = ["id", "course.name", "course.nivel", "student.name", "actions"];
+  authUser: Student | null = null;
 
   constructor(private store: Store, private formBuilder: FormBuilder, private matDialog: MatDialog){
-    this.inscriptionForm = this.formBuilder.group({
-      courseId: [null, [Validators.required]],
-      userId: [null, [Validators.required]]
-    });
-
+    this.authUser$ = this.store.select(selectAuthenticatedUser);
     this.inscriptions$ = this.store.select(selectInscriptions);
+
+    this.authUser$.subscribe({
+      next: (resp) => this.authUser = resp
+    });
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(InscriptionActions.loadInscriptions());
   }
 
   onDelete(id: string): void{
@@ -55,10 +64,5 @@ export class InscriptionsComponent implements OnInit{
         }
       })
   }
-
-  ngOnInit(): void {
-    this.store.dispatch(InscriptionActions.loadInscriptions());
-  }
-  
   
 }
